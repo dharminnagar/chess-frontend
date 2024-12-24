@@ -1,8 +1,19 @@
+import { Chessboard } from "../components/Chessboard";
+
 export function Game() {
   return (
-    <div className="w-screen h-screen bg-slate-700 text-white">
-      <div className="flex flex-col items-center justify-center h-full">
-        <div className="text-4xl">Hello, This is the Game Page</div>
+    <div className="flex justify-center">
+      <div className="pt-8 max-w-screen-lg w-full">
+        <div className="grid grid-cols-6 gap-4 w-full">
+          <div className="col-span-4 w-full bg-red-500">
+            <Chessboard />
+          </div>
+          <div className="col-span-2 w-ful">
+            <button className="bg-green-500 hover:bg-green-700 transition-all w-full p-2 rounded-md">
+              Play
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
