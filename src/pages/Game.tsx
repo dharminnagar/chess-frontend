@@ -12,6 +12,7 @@ export function Game() {
   const socket = useSocket();
   const [chess, setChess] = useState(new Chess());
   const [board, setBoard] = useState(chess.board());
+  const [playerColor, setPlayerColor] = useState<"white" | "black">("white");
 
   useEffect(() => {
     if (!socket) return;
@@ -20,14 +21,35 @@ export function Game() {
       const message = JSON.parse(event.data);
       switch (message.type) {
         case INIT_GAME:
+          const color = message.payload.color;
+          setPlayerColor(color); // TODO: This is not updating, check why
+          console.log("Color", color);
+          console.log("Player Color", playerColor);
           setChess(new Chess());
-          setBoard(chess.board());
+
+          color === "black"
+            ? setBoard(
+                chess
+                  .board()
+                  .map((row) => row.reverse())
+                  .reverse()
+              )
+            : setBoard(chess.board());
           console.log("Game Initialized");
           break;
         case MOVE:
+          console.log("player color in move: ", playerColor);
           const move = message.payload;
           chess.move(move);
-          setBoard(chess.board());
+          playerColor === "black"
+            ? setBoard(
+                chess
+                  .board()
+                  .map((row) => row.reverse())
+                  .reverse()
+              )
+            : setBoard(chess.board());
+          chess.board();
           console.log("Move", message.payload);
           break;
         case GAME_OVER:
@@ -37,7 +59,7 @@ export function Game() {
           break;
       }
     };
-  }, [socket]);
+  }, [socket, playerColor]);
 
   if (!socket) return <div>Connecting...</div>;
 
@@ -46,7 +68,11 @@ export function Game() {
       <div className="pt-8 max-w-screen-lg w-full">
         <div className="grid grid-cols-6 gap-4 w-full">
           <div className="col-span-4 w-full flex items-center">
-            <Chessboard board={board} />
+            <Chessboard
+              socket={socket}
+              board={board}
+              playerColor={playerColor[0] as "w" | "b"}
+            />
           </div>
           <div className="col-span-2 w-full">
             <button
