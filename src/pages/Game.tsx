@@ -8,7 +8,7 @@ export function Game() {
           <div className="col-span-4 w-full bg-red-500">
             <Chessboard />
           </div>
-          <div className="col-span-2 w-ful">
+          <div className="col-span-2 w-full">
             <button className="bg-green-500 hover:bg-green-700 transition-all w-full p-2 rounded-md">
               Play
             </button>
