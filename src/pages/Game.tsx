@@ -83,6 +83,8 @@ export function Game() {
                     type: INIT_GAME,
                   })
                 );
+
+                setChess(new Chess());
               }}
             >
               {gameStarted ? "Leave & Start New Game" : "Start Game"}
