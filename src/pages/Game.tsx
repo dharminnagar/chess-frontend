@@ -13,6 +13,7 @@ export function Game() {
   const [chess, setChess] = useState(new Chess());
   const [board, setBoard] = useState(chess.board());
   const [playerColor, setPlayerColor] = useState<"white" | "black">("white");
+  const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
     if (!socket) return;
@@ -79,6 +80,7 @@ export function Game() {
             <button
               className="bg-green-500 hover:bg-green-700 transition-all w-full p-2 rounded-md"
               onClick={() => {
+                setGameStarted(true);
                 socket.send(
                   JSON.stringify({
                     type: INIT_GAME,
@@ -86,7 +88,7 @@ export function Game() {
                 );
               }}
             >
-              Play
+              {gameStarted ? "Leave & Start New Game" : "Start Game"}
             </button>
           </div>
         </div>
