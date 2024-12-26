@@ -14,7 +14,7 @@ export function Landing() {
               className="bg-green-700 p-2 rounded-md"
               onClick={() => navigate("/game")}
             >
-              Join Room
+              Play Game
             </button>
           </div>
         </div>
