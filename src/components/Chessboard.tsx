@@ -1,13 +1,15 @@
-import { Color, PieceSymbol, Square } from "chess.js";
+import { Chess, Color, PieceSymbol, Square } from "chess.js";
 import { Piece, PieceProps } from "@chessire/pieces";
 import { useState } from "react";
 import { MOVE } from "../pages/Game";
 
 export function Chessboard({
+  chess,
   board,
   playerColor,
   socket,
 }: {
+  chess: Chess;
   board: ({
     square: Square;
     type: PieceSymbol;
@@ -18,6 +20,46 @@ export function Chessboard({
 }) {
   const [from, setFrom] = useState<Square | null>(null);
   const [to, setTo] = useState<Square | null>(null);
+  const [possibleMoves, setPossibleMoves] = useState<Square[]>([]);
+
+  const handleSquareClick = (square: Square) => {
+    if (chess.turn() !== playerColor[0]) return;
+
+    if (!from) {
+      console.log("inside if");
+      setFrom(square);
+      const moves = chess.moves({
+        square: square,
+        verbose: true,
+      });
+      setPossibleMoves(moves.map((move) => move.to as Square));
+      console.log("From", square);
+    } else {
+      // setTo(square?.square ?? null);
+      console.log("To", square);
+      const payload = JSON.stringify({
+        type: MOVE,
+        move: {
+          from: from,
+          to: square,
+        },
+      });
+      console.log("Payload", payload);
+      socket.send(
+        JSON.stringify({
+          type: MOVE,
+          move: {
+            from: from,
+            to: square,
+          },
+        })
+      );
+
+      setFrom(null);
+      setTo(null);
+      setPossibleMoves([]);
+    }
+  };
 
   return (
     <div>
@@ -31,6 +73,9 @@ export function Chessboard({
                       String(8 - i)) as Square)
                   : ((String.fromCharCode(97 + (7 - (j % 8))) +
                       String(i + 1)) as Square);
+
+              const isPossibleMove =
+                possibleMoves.includes(squareRepresentation);
               return (
                 <div
                   key={j}
@@ -47,35 +92,7 @@ export function Chessboard({
                   </div>
                   <div
                     className="flex justify-center items-center h-20"
-                    onClick={() => {
-                      if (!from) {
-                        setFrom(squareRepresentation);
-                        console.log("From", squareRepresentation);
-                      } else {
-                        // setTo(square?.square ?? null);
-                        console.log("To", squareRepresentation);
-                        const payload = JSON.stringify({
-                          type: MOVE,
-                          move: {
-                            from: from,
-                            to: squareRepresentation,
-                          },
-                        });
-                        console.log("Payload", payload);
-                        socket.send(
-                          JSON.stringify({
-                            type: MOVE,
-                            move: {
-                              from: from,
-                              to: squareRepresentation,
-                            },
-                          })
-                        );
-
-                        setFrom(null);
-                        setTo(null);
-                      }
-                    }}
+                    onClick={() => handleSquareClick(squareRepresentation)}
                   >
                     {square ? (
                       // @ts-ignore
@@ -84,6 +101,8 @@ export function Chessboard({
                         piece={square.type.toUpperCase() as PieceProps["piece"]}
                         width={72}
                       />
+                    ) : isPossibleMove === true ? (
+                      <div className="w-4 h-4 bg-black rounded-full opacity-30" />
                     ) : (
                       ""
                     )}

@@ -59,7 +59,7 @@ export function Game() {
           break;
       }
     };
-  }, [socket, playerColor]);
+  }, [socket, playerColor, chess]);
 
   if (!socket) return <div>Connecting...</div>;
 
@@ -69,6 +69,7 @@ export function Game() {
         <div className="grid grid-cols-6 gap-4 w-full">
           <div className="col-span-4 w-full flex items-center">
             <Chessboard
+              chess={chess}
               socket={socket}
               board={board}
               playerColor={playerColor[0] as "w" | "b"}
