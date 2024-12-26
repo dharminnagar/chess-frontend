@@ -97,7 +97,7 @@ export function Game() {
 
             {/* Instructions */}
             <div className="mt-4">
-              <div className="text-xl">Instructions</div>
+              <div className="text-xl font-bold">Instructions</div>
               <ul className="list-disc list-inside">
                 <li>Click on a piece to select it</li>
                 <li>Click on a valid square to move the piece</li>
