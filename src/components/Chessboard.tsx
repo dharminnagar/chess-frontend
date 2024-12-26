@@ -81,13 +81,25 @@ export function Chessboard({
                     (i + j) % 2 ? "bg-green-800" : "bg-green-200"
                   }`}
                 >
-                  <div
-                    className={`text-s font-bold pl-[0.5px] absolute ${
-                      i % 2 === 0 ? "text-green-800" : "text-green-200"
-                    }`}
-                  >
-                    {j === 0 ? 8 - i : ""}
-                  </div>
+                  {playerColor === "w" && (
+                    <div
+                      className={`text-s font-bold pl-[0.5px] absolute ${
+                        i % 2 === 0 ? "text-green-800" : "text-green-200"
+                      }`}
+                    >
+                      {j === 0 ? 8 - i : ""}
+                    </div>
+                  )}
+
+                  {playerColor === "b" && (
+                    <div
+                      className={`text-s font-bold pl-[0.5px] absolute ${
+                        i % 2 === 0 ? "text-green-800" : "text-green-200"
+                      }`}
+                    >
+                      {j === 0 ? i + 1 : ""}
+                    </div>
+                  )}
                   <div
                     className="flex justify-center items-center h-20"
                     onClick={() => handleSquareClick(squareRepresentation)}
@@ -105,9 +117,17 @@ export function Chessboard({
                       ""
                     )}
                   </div>
-                  <div className="text-s font-bold pl-1">
-                    {i === 7 ? String.fromCharCode(97 + j) : ""}
-                  </div>
+                  {playerColor === "w" && (
+                    <div className="text-s font-bold pl-1">
+                      {i === 7 ? String.fromCharCode(97 + j) : ""}
+                    </div>
+                  )}
+
+                  {playerColor === "b" && (
+                    <div className="text-s font-bold pl-1">
+                      {i === 7 ? String.fromCharCode(104 - j) : ""}
+                    </div>
+                  )}
                 </div>
               );
             })}
