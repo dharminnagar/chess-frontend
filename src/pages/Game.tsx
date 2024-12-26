@@ -20,7 +20,7 @@ export function Game() {
       switch (message.type) {
         case INIT_GAME:
           const color = message.payload.color;
-          setPlayerColor(color); // TODO: This is not updating, check why
+          setPlayerColor(color);
           console.log("Color", color);
           console.log("Player Color", playerColor);
           setChess(new Chess());
@@ -51,11 +51,6 @@ export function Game() {
           console.log("Move", message.payload);
           break;
         case GAME_OVER:
-          return (
-            <div className="h-full w-full flex justify-center items-center">
-              <div className="text-4xl">Game Over</div>
-            </div>
-          );
           console.log("Game Over", message.payload);
           break;
         default:
