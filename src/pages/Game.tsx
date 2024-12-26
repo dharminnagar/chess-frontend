@@ -86,6 +86,15 @@ export function Game() {
             >
               {gameStarted ? "Leave & Start New Game" : "Start Game"}
             </button>
+
+            <div className="mt-4">
+              <div className="text-xl">Instructions</div>
+              <ul className="list-disc list-inside">
+                <li>Click on a piece to select it</li>
+                <li>Click on a valid square to move the piece</li>
+                <li>Click on the same piece to deselect it</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
