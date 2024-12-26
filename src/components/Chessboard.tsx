@@ -19,7 +19,6 @@ export function Chessboard({
   socket: WebSocket;
 }) {
   const [from, setFrom] = useState<Square | null>(null);
-  const [to, setTo] = useState<Square | null>(null);
   const [possibleMoves, setPossibleMoves] = useState<Square[]>([]);
 
   const handleSquareClick = (square: Square) => {
@@ -56,7 +55,6 @@ export function Chessboard({
       );
 
       setFrom(null);
-      setTo(null);
       setPossibleMoves([]);
     }
   };
