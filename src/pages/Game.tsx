@@ -3,6 +3,7 @@ import { Chessboard } from "../components/Chessboard";
 import { useSocket } from "../hooks/useSocket";
 import { Chess } from "chess.js";
 import { INIT_GAME, MOVE, GAME_OVER } from "../configs/messages";
+import { MoveHistory } from "../components/MoveHistory";
 
 export function Game() {
   const socket = useSocket();
@@ -87,6 +88,7 @@ export function Game() {
               {gameStarted ? "Leave & Start New Game" : "Start Game"}
             </button>
 
+            {/* Instructions */}
             <div className="mt-4">
               <div className="text-xl">Instructions</div>
               <ul className="list-disc list-inside">
@@ -95,6 +97,26 @@ export function Game() {
                 <li>Click on the same piece to deselect it</li>
               </ul>
             </div>
+
+            <hr className="mt-5" />
+
+            {/* Display Game Status */}
+            <div className="my-4">
+              <div className="text-xl font-bold">Game Status</div>
+              <div>
+                {chess.isCheckmate()
+                  ? "Checkmate"
+                  : chess.isCheck()
+                  ? "Check"
+                  : chess.isStalemate()
+                  ? "Stalemate"
+                  : chess.isDraw()
+                  ? "Draw"
+                  : "In Progress"}
+              </div>
+            </div>
+
+            <MoveHistory chess={chess} />
           </div>
         </div>
       </div>
