@@ -51,6 +51,11 @@ export function Game() {
           console.log("Move", message.payload);
           break;
         case GAME_OVER:
+          return (
+            <div className="h-full w-full flex justify-center items-center">
+              <div className="text-4xl">Game Over</div>
+            </div>
+          );
           console.log("Game Over", message.payload);
           break;
         default:
@@ -107,9 +112,11 @@ export function Game() {
               <div className="text-xl font-bold">Game Status</div>
               <div>
                 {chess.isCheckmate()
-                  ? "Checkmate"
+                  ? `Checkmate: ${
+                      chess.turn() === "w" ? "Black" : "White"
+                    } Wins!`
                   : chess.isCheck()
-                  ? "Check"
+                  ? `Check to ${chess.turn() === "w" ? "White" : "Black"}`
                   : chess.isStalemate()
                   ? "Stalemate"
                   : chess.isDraw()
