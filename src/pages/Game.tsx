@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import { Chessboard } from "../components/Chessboard";
 import { useSocket } from "../hooks/useSocket";
 import { Chess } from "chess.js";
-
-// Move to another file, there's code repetition
-export const INIT_GAME = "init_game";
-export const MOVE = "move";
-export const GAME_OVER = "game_over";
+import { INIT_GAME, MOVE, GAME_OVER } from "../configs/messages";
 
 export function Game() {
   const socket = useSocket();

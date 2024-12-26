@@ -1,7 +1,7 @@
 import { Chess, Color, PieceSymbol, Square } from "chess.js";
 import { Piece, PieceProps } from "@chessire/pieces";
 import { useState } from "react";
-import { MOVE } from "../pages/Game";
+import { MOVE } from "../configs/messages";
 
 export function Chessboard({
   chess,
