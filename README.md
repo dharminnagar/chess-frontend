@@ -51,7 +51,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![ChessBoard Screen Shot][product-screenshot]](/public/pageScreenshot.png)
+![ChessBoard Screen Shot](/public/pageScreenshot.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
