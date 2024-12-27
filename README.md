@@ -82,20 +82,24 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Clone the repo
+1. Clone this repo
    ```sh
    git clone https://github.com/dharminnagar/chess-frontend.git
    ```
-2. Install NPM packages
+2. Clone the backend repo
+   ```sh
+    git clone https://github.com/dharminnagar/chess-backend.git
+    ```
+3. Install NPM packages
    ```sh
    npm install
    ```
-3. Change git remote url to avoid accidental pushes to base project
+4. Change git remote url to avoid accidental pushes to base project
    ```sh
    git remote set-url origin dharminnagar/chess-frontend
    git remote -v # confirm the changes
    ```
-4. Start the development server
+5. Start the development server
    ```sh
     npm run dev
     ```
